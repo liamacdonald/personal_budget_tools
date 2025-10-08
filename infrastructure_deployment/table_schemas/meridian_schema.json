@@ -1,0 +1,50 @@
+[
+  {
+    "name": "account_number",
+    "type": "STRING"
+  },
+  {
+    "name": "cardholder_name",
+    "type": "STRING"
+  },
+  {
+    "name": "transaction_date",
+    "type": "DATE"
+  },
+  {
+    "name": "posting_date",
+    "type": "DATE"
+  },
+  {
+    "name": "type",
+    "type": "STRING"
+  },
+  {
+    "name": "category",
+    "type": "STRING"
+  },
+  {
+    "name": "merchant_name",
+    "type": "STRING"
+  },
+  {
+    "name": "amount",
+    "type": "STRING"
+  },
+  {
+    "name": "reference_number",
+    "type": "INT"
+  },
+  {
+    "name": "transaction_type",
+    "type": "STRING"
+  },
+  {
+    "name": "mcc_code",
+    "type": "INT"
+  },
+  {
+    "name": "mcc_description",
+    "type": "STRING"
+  }
+]
