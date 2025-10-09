@@ -14,7 +14,7 @@ provider "google" {
 
 terraform {
   backend "gcs" {
-    bucket = "${var.resource_prefix}_terraform_resources"
+    bucket = "katie_and_liam_terraform_resources"
   }
 }
 
