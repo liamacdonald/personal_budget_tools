@@ -33,7 +33,7 @@
   },
   {
     "name": "reference_number",
-    "type": "INT"
+    "type": "INTEGER"
   },
   {
     "name": "transaction_type",
@@ -41,7 +41,7 @@
   },
   {
     "name": "mcc_code",
-    "type": "INT"
+    "type": "INTEGER"
   },
   {
     "name": "mcc_description",
