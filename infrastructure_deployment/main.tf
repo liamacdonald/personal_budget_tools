@@ -54,5 +54,5 @@ resource "google_bigquery_table" "raw_meridian_table" {
   
   # Load schema from a JSON file in the same directory
   schema = file("${path.module}/table_schemas/meridian_schema.json")
-  depends_on = [google_project_service.enabled_apis,google_bigquery_dataset.raw_financial_data]
+  depends_on = [google_project_service.enabled_apis,google_bigquery_dataset.raw_financial_dataset]
 }
