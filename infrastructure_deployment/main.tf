@@ -35,7 +35,7 @@ resource "google_storage_bucket" "project_storage_bucket" {
   location                    = var.region
   uniform_bucket_level_access = true
   storage_class = "STANDARD"
-  force_destroy               = true,
+  force_destroy               = true
   depends_on = [google_project_service.enabled_apis]
 }
 
