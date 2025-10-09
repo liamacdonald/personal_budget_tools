@@ -31,7 +31,7 @@ resource "google_project_service" "enabled_apis" {
 
 ## Create cloud storage bucket for managing all project resources
 resource "google_storage_bucket" "project_storage_bucket" {
-  name                        = "${resource_prefix}_household_budget"
+  name                        = "${var.resource_prefix}_household_budget"
   location                    = var.region
   uniform_bucket_level_access = true
   storage_class = "STANDARD"
