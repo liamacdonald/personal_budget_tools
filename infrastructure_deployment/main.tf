@@ -35,7 +35,8 @@ resource "google_storage_bucket" "project_storage_bucket" {
   location                    = var.region
   uniform_bucket_level_access = true
   storage_class = "STANDARD"
-  force_destroy               = true
+  force_destroy               = true,
+  depends_on = [google_project_service.enabled_apis]
 }
 
 
@@ -44,6 +45,7 @@ resource "google_bigquery_dataset" "raw_financial_dataset" {
   friendly_name = "Raw Financial Data"
   description   = "Raw data from different financial sources"
   location      = var.region
+  depends_on = [google_project_service.enabled_apis]
 }
 
 resource "google_bigquery_table" "raw_meridian_table" {
@@ -52,4 +54,5 @@ resource "google_bigquery_table" "raw_meridian_table" {
   
   # Load schema from a JSON file in the same directory
   schema = file("${path.module}/table_schemas/meridian_schema.json")
+  depends_on = [google_project_service.enabled_apis,google_bigquery_dataset.raw_financial_data]
 }
