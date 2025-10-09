@@ -1,10 +1,3 @@
-variable "org_id" {
- type        = string
- description = "ID of the GCP organization where the resources are being deployed"
- sensitive   = true
-}
-
-
 variable "project_id" {
  type        = string
  description = "Project ID where the resources will be deployed"
@@ -14,12 +7,6 @@ variable "project_id" {
 variable "region" {
  type        = string
  description = "Region where resources will be deployed"
- sensitive   = true
-}
-
-variable "zone" {
- type        = string
- description = "Zone where resources will be deployed"
  sensitive   = true
 }
 
