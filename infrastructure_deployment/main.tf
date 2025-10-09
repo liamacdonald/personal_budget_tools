@@ -12,6 +12,12 @@ provider "google" {
   region  = var.region
 }
 
+terraform {
+  backend "gcs" {
+    bucket = "${var.resource_prefix}_terraform_resources"
+  }
+}
+
 
 ## Necessary variable
 locals {
