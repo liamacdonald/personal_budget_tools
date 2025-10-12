@@ -16,7 +16,7 @@
     "type": "DATE"
   },
   {
-    "name": "type",
+    "name": "transaction_type",
     "type": "STRING"
   },
   {

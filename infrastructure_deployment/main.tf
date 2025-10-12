@@ -46,19 +46,33 @@ resource "google_storage_bucket" "project_storage_bucket" {
 }
 
 
-resource "google_bigquery_dataset" "raw_financial_dataset" {
-  dataset_id  = "raw_financial_data"
-  friendly_name = "Raw Financial Data"
-  description   = "Raw data from different financial sources"
+resource "google_bigquery_dataset" "budget_data" {
+  dataset_id  = "budget_data"
+  friendly_name = "Reporting Budget Data"
+  description   = "Dataset that will house all the data for budgets including the raw import data as well as any additional terraform data"
   location      = var.region
   depends_on = [google_project_service.enabled_apis]
 }
 
-resource "google_bigquery_table" "raw_meridian_table" {
-  dataset_id = google_bigquery_dataset.raw_financial_dataset.dataset_id
+
+#### Raw table definitions
+resource "google_bigquery_table" "budget_data" {
+  dataset_id = google_bigquery_dataset.budget_data.dataset_id
   table_id   = "meridian_raw_transactions"
   
   # Load schema from a JSON file in the same directory
-  schema = file("${path.module}/table_schemas/meridian_schema.json")
-  depends_on = [google_project_service.enabled_apis,google_bigquery_dataset.raw_financial_dataset]
+  schema = file("${path.module}/table_and_view_definitions/meridian_schema.json")
+  depends_on = [google_project_service.enabled_apis,google_bigquery_dataset.budget_data]
+}
+
+
+#### Materialized Views
+resource "google_bigquery_table" "example_materialized_view" {
+  dataset_id = google_bigquery_dataset.budget_data.dataset_id
+  table_id   = "consolidated_transaction_list"
+
+  materialized_view {
+    query          = file("${path.module}/table_and_view_definitions/consolidates_transaction_list_mv.sql")
+    enable_refresh = false
+  }
 }
