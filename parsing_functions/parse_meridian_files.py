@@ -3,9 +3,10 @@ import csv
 from pathlib import Path
 from google.cloud import bigquery
 from google.cloud import storage
+import pandas as pd
 
 
-def parse_meridian_csv(file_path: Path):
+def parse_meridian_csv_to_list_of_dicts(file_path: Path):
     """
     Parses a Meridian CSV file and returns a list of dictionaries.
     """
@@ -34,6 +35,35 @@ def parse_meridian_csv(file_path: Path):
 
     return parsed_records
 
+def parse_meridian_csv_to_df(file_path: Path):
+    """
+    Parses a Meridian CSV file and returns a list of dataframe with parsed column names
+    """
+
+    with open(file_path, mode='r') as file:
+        # The user provided headers with tabs, so we assume a tab-separated file.
+        df = pd.read_csv(file_path , sep='\t')
+        df.rename({
+                    'Account Number' : 'account_number', 
+                    'Cardholder Name' : 'cardholder_name',
+                    'Trans Date' : 'transaction_date',
+                    'Posting Date' : 'posting_date',
+                    'Type' : 'transaction_type',
+                    'Category' : 'category',
+                    'Merchant Name' : 'merchant_name',
+                    'Amount' : 'amount' ,
+                    'Reference Number' : 'reference_number' ,
+                    'MCC Code' : 'mcc_code' ,
+                    'MCC Description' : 'mcc_description'
+                } ,
+            inplace=True
+        )
+                parsed_records.append(parsed_record)
+            except (KeyError, ValueError) as e:
+                print(f"Skipping row due to error: {e}. Row: {raw_record}")
+
+    return parsed_records
+
 def write_to_bigquery(data, table_id):
     """
     Writes data to a BigQuery table.
@@ -44,6 +74,8 @@ def write_to_bigquery(data, table_id):
         print("New rows have been added.")
     else:
         print(f"Encountered errors while inserting rows: {errors}")
+
+def write_csv_with_all_transactions(transaction_list: list[dict] , csv_path: )
 
 if __name__ == '__main__':
     # TODO: Replace with the actual path to your CSV file
